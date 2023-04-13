@@ -83,6 +83,7 @@ export async function POST(req) {
 
     const token = jwt.sign(
       { email, id: user.id },
+      // eslint-disable-next-line no-undef
       process.env.TOKEN_SECRET,
       {
         expiresIn: "3days",

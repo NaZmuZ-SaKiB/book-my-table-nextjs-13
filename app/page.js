@@ -2,8 +2,8 @@ import Header from "@/components/Header";
 import RestaurantCard from "@/components/RestaurantCard";
 
 const fetchRestaurants = async () => {
-  // eslint-disable-next-line no-undef
   const jsonRes = await fetch(
+    // eslint-disable-next-line no-undef
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`,
     {
       next: { revalidate: 60 },
