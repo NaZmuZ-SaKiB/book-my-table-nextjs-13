@@ -7,9 +7,14 @@ import { AuthenticationContext } from "@/context/AuthContext";
 
 export default function Authenticate() {
   const router = useRouter();
-  const { data } = useContext(AuthenticationContext);
-  if (!data) {
-    router.push("/");
+  const { data, loading } = useContext(AuthenticationContext);
+  if (loading) {
+    return <></>;
+  } else {
+    if (!data) {
+      return router.push("/");
+    }
   }
+
   return <></>;
 }

@@ -1,9 +1,5 @@
 import Header from "./components/Header";
 
-export const metadata = {
-  title: "Milestones Grill (Toronto) | BookMyTable",
-};
-
 export default function RestaurantLayout({ children, params }) {
   return (
     <>

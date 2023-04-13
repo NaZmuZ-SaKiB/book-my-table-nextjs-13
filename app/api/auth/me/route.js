@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
@@ -9,6 +8,7 @@ const prisma = new PrismaClient();
 export async function GET(req) {
   try {
     const token = await req.cookies.get("jwt").value;
+    console.log(token);
 
     const decoded = await verifyToken(token);
     if (decoded === 401) {

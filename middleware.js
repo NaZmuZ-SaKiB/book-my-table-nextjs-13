@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export default async function middleware(req) {
   try {
-    const bearerToken = req.headers.get("Authorization");
+    const bearerToken = await req.cookies.get("jwt").value;
 
     console.log("inside middleware");
 
@@ -14,15 +14,15 @@ export default async function middleware(req) {
       });
     }
 
-    const token = bearerToken.split(" ")[1];
+    // const token = bearerToken.split(" ")[1];
 
-    if (!token) {
-      return NextResponse.json({
-        status: "fail",
-        message: "No token",
-        error: "Unauthorized request!",
-      });
-    }
+    // if (!token) {
+    //   return NextResponse.json({
+    //     status: "fail",
+    //     message: "No token",
+    //     error: "Unauthorized request!",
+    //   });
+    // }
 
     return;
   } catch (error) {

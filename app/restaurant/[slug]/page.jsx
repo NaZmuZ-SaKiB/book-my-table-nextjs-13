@@ -10,7 +10,7 @@ import AddReview from "./components/AddReview";
 
 const fetchRestaurantBySlug = async (slug) => {
   const jsonRes = await fetch(
-    `${process.env.baseApiURL}/api/restaurant/${slug}`,
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}`,
     {
       next: { revalidate: 60 },
     }
@@ -59,10 +59,17 @@ export default async function RestaurantDetails({ params }) {
 export const dynamicParams = false; // true | false,
 
 export async function generateStaticParams() {
-  const jsonRes = await fetch(`${process.env.baseApiURL}/api/restaurant`);
+  const jsonRes = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`
+  );
   const res = await jsonRes.json();
 
   return res.data.map((restaurant) => ({
     slug: restaurant.slug,
   }));
+}
+
+export async function generateMetadata({ params }) {
+  const restaurant = await fetchRestaurantBySlug(params.slug);
+  return { title: restaurant.name };
 }

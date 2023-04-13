@@ -13,7 +13,7 @@ export default function useAvailabilities() {
     setError(null);
     try {
       const res = await axios.get(
-        `${process.env.baseApiURL}/api/restaurant/${slug}/availability`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}/availability`,
         {
           params: { day, time, partySize },
         }

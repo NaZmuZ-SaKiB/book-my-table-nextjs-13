@@ -3,9 +3,12 @@ import RestaurantCard from "@/components/RestaurantCard";
 
 const fetchRestaurants = async () => {
   // eslint-disable-next-line no-undef
-  const jsonRes = await fetch(`${process.env.baseApiURL}/api/restaurant`, {
-    next: { revalidate: 60 },
-  });
+  const jsonRes = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
   const res = await jsonRes.json();
   if (res.status === "success") {
     return res.data;

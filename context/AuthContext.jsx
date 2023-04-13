@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 "use client";
 
 import { createContext, useEffect, useState } from "react";
@@ -26,11 +25,15 @@ export default function AuthContext({ children }) {
         });
       }
 
-      const res = await axios.get(`${process.env.baseApiURL}/api/auth/me`, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
+      const res = await axios.get(
+        // eslint-disable-next-line no-undef
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/auth/me`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 

@@ -18,11 +18,8 @@ export default function Dashboard() {
   const fetchUserBookings = async () => {
     setLoading(true);
     const res = await axios
-      .get("/api/booking/my", {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      })
+      // eslint-disable-next-line no-undef
+      .get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/booking/my`)
       .catch(() => {
         setLoading(false);
       });

@@ -34,7 +34,7 @@ export default function AddItem({ params }) {
     setLoading(true);
     try {
       const res = await axios.post(
-        `${process.env.baseApiURL}/api/owner/item/${params.slug}`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/owner/item/${params.slug}`,
         {
           name: inputs.name,
           price: inputs.price,
@@ -115,11 +115,7 @@ export default function AddItem({ params }) {
         disabled={disabled || loading}
         className="bg-blue-500 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-200"
       >
-        {loading ? (
-          <CircularProgress size={30} color="primary" />
-        ) : (
-          "Save Changes"
-        )}
+        {loading ? <CircularProgress size={30} color="primary" /> : "Add Item"}
       </button>
     </div>
   );

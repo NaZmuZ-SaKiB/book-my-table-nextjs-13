@@ -6,7 +6,7 @@ import Authenticate from "./components/Authenticate";
 export default function Layout({ children }) {
   return (
     <>
-      <Authenticate />
+      {/* <Authenticate /> */}
       <main className="relative lg:flex w-full max-w-screen-lg mx-auto justify-between py-8 md:py-16 overflow-hidden">
         <label
           htmlFor="dashboard-toggle"

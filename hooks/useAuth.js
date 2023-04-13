@@ -12,7 +12,7 @@ const useAuth = () => {
     setAuthState({ data: null, error: null, loading: true });
     try {
       const res = await axios.post(
-        `${process.env.baseApiURL}/api/auth/signin`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/auth/signin`,
         {
           email,
           password,
@@ -58,7 +58,7 @@ const useAuth = () => {
       setAuthState({ data: null, error: null, loading: true });
 
       const res = await axios.post(
-        `${process.env.baseApiURL}/api/auth/signup`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/auth/signup`,
         {
           firstName,
           lastName,

@@ -101,7 +101,7 @@ export default function AddRestaurant() {
         tables: [parseInt(tables_1), parseInt(tables_2)],
       };
       const res = await axios.post(
-        `${process.env.baseApiURL}/api/restaurant`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`,
         data,
         {
           headers: {

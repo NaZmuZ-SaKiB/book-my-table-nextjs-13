@@ -1,17 +1,13 @@
 /* eslint-disable no-undef */
 "use client";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Rating from "@mui/material/Rating";
 import { Alert, AlertTitle, CircularProgress } from "@mui/material";
 
-import { AuthenticationContext } from "@/context/AuthContext";
 import axios from "axios";
 
 export default function AddReview({ id }) {
-  const { data: user } = useContext(AuthenticationContext);
-  console.log(user);
-
   const [rating, setRating] = useState(3);
   const [text, setText] = useState("");
   const inputRef = useRef();
@@ -31,11 +27,14 @@ export default function AddReview({ id }) {
   const handleClick = async () => {
     setLoading(true);
     try {
-      const res = await axios.post(`${process.env.baseApiURL}/api/review`, {
-        rating,
-        text,
-        restaurant_id: id,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/review`,
+        {
+          rating,
+          text,
+          restaurant_id: id,
+        }
+      );
 
       if (res.data?.status === "success") {
         setError(null);

@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
 
 export async function GET(req, { params }) {
   try {
+    console.log("fetch availability");
     const { slug } = params;
     const { day, time, partySize } = getSearchParams(req.url);
 
@@ -31,7 +32,7 @@ export async function GET(req, { params }) {
     });
 
     if (!restaurant) {
-      return res.json({
+      return NextResponse.json({
         status: "fail",
         message: "Invalid data provided.",
         error: "Query Error",

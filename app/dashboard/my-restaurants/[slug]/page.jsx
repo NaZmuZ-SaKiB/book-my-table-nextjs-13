@@ -95,7 +95,7 @@ export default function Restaurant({ params }) {
     setBtnLoading(true);
     try {
       const res = await axios.patch(
-        `${process.env.baseApiURL}/api/owner/restaurant/${params.slug}`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/owner/restaurant/${params.slug}`,
         { ...inputs, images }
       );
       if (res.data?.status === "success") {

@@ -10,15 +10,11 @@ export async function GET(req, { params }) {
       where: {
         slug,
       },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        images: true,
-        slug: true,
+      include: {
         reviews: true,
-        open_time: true,
-        close_time: true,
+        bookings: true,
+        items: true,
+        tables: true,
       },
     });
 

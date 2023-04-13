@@ -1,14 +1,10 @@
-/* eslint-disable no-undef */
 import RestaurantNavBar from "../components/RestaurantNavBar";
 import Menu from "../components/Menu";
 
-export const metadata = {
-  title: "Menu of Milestones Grill (Toronto) | BookMyTable",
-};
-
 const fetchRestaurantMenu = async (slug) => {
   const jsonRes = await fetch(
-    `${process.env.baseApiURL}/api/restaurant/${slug}/menu`,
+    // eslint-disable-next-line no-undef
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}/menu`,
     { next: { revalidate: 60 } }
   );
   const res = await jsonRes.json();
@@ -29,4 +25,25 @@ export default async function RestaurantMenu({ params }) {
       </div>
     </>
   );
+}
+
+export async function generateStaticParams() {
+  // eslint-disable-next-line no-undef
+  const jsonRes = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`
+  );
+  const res = await jsonRes.json();
+
+  return res.data.map((restaurant) => ({
+    slug: restaurant.slug,
+  }));
+}
+
+export async function generateMetadata({ params }) {
+  const jsonRes = await fetch(
+    // eslint-disable-next-line no-undef
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${params.slug}`
+  );
+  const res = await jsonRes.json();
+  return { title: `Menu | ${res.data.name}` };
 }

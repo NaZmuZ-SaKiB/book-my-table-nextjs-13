@@ -54,7 +54,7 @@ export default function MyAccount() {
     try {
       const jwt = getCookie("jwt");
       const res = await axios.patch(
-        `${process.env.baseApiURL}/api/auth/me`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/auth/me`,
         { ...inputs },
         {
           headers: {

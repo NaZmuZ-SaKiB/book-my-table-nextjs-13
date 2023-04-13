@@ -1,38 +1,21 @@
-import { PrismaClient } from "@prisma/client";
-
 import Header from "../components/Header";
 import Form from "../components/Form";
-import { notFound } from "next/navigation";
-
-const prisma = new PrismaClient();
 
 const fetchRestaurantBySlug = async (slug) => {
-  setTimeout(() => {}, 5000);
-  const restaurant = await prisma.restaurant.findUnique({
-    where: {
-      slug,
-    },
-    // select: {
-    //   id: true,
-    //   name: true,
-    //   description: true,
-    //   images: true,
-    //   slug: true,
-    //   reviews: true,
-    //   open_time: true,
-    //   close_time: true,
-    // },
-  });
+  const jsonRes = await fetch(
+    // eslint-disable-next-line no-undef
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
+  const res = await jsonRes.json();
 
-  if (!restaurant) {
-    notFound();
+  if (res.status === "success") {
+    return res.data;
+  } else {
+    return null;
   }
-
-  return restaurant;
-};
-
-export const metadata = {
-  title: "Reserve at Milestones Grill (Toronto) | BookMyTable",
 };
 
 export default async function Reserve({ params, searchParams }) {
@@ -51,4 +34,22 @@ export default async function Reserve({ params, searchParams }) {
       </div>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  // eslint-disable-next-line no-undef
+  const jsonRes = await fetch(
+    // eslint-disable-next-line no-undef
+    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`
+  );
+  const res = await jsonRes.json();
+
+  return res.data.map((restaurant) => ({
+    slug: restaurant.slug,
+  }));
+}
+
+export async function generateMetadata({ params }) {
+  const restaurant = await fetchRestaurantBySlug(params.slug);
+  return { title: `Reserve | ${restaurant.name}` };
 }

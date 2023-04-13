@@ -1,13 +1,16 @@
-/* eslint-disable no-undef */
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
+
+import verifyToken from "@/utils/verifyToken";
 
 const prisma = new PrismaClient();
 
 export async function GET(req) {
   try {
+    console.log("HIT api/booking/my");
     const token = await req.cookies.get("jwt").value;
     const user = await verifyToken(token);
+    console.log(user);
     if (user === 401) {
       return NextResponse.json({
         status: "fail",

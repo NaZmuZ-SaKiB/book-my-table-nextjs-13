@@ -24,7 +24,7 @@ export default function useReservation() {
     setError(null);
     try {
       const res = await axios.post(
-        `${process.env.baseApiURL}/api/restaurant/${slug}/reserve`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}/reserve`,
         {
           bookerEmail,
           bookerPhone,

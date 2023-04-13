@@ -1,8 +1,6 @@
 import MenuCard from "../../../../components/MenuCard";
 
 export default async function Menu({ menu }) {
-  console.log("From Menu");
-  console.log(menu);
   return (
     <main className="bg-white mt-5">
       <div>

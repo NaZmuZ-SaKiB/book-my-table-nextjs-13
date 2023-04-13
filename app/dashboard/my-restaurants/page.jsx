@@ -14,7 +14,7 @@ export default function MyRestaurants() {
   const fetchUserRestaurants = async () => {
     setLoading(true);
     const res = await axios
-      .get(`${process.env.baseApiURL}/api/restaurant/my`)
+      .get(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/my`)
       .catch(() => {
         setLoading(false);
       });

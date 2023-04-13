@@ -33,7 +33,7 @@ export default function Booking({ booking, setSuccess, setError, setRefresh }) {
     handleClose();
     setLoading(true);
     const res = await axios.delete(
-      `${process.env.baseApiURL}/api/booking/${id}`
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/booking/${id}`
     );
     if (res.data?.status === "success") {
       setSuccess(res.data?.message);
