@@ -1,5 +1,3 @@
-import { notFound } from "next/navigation";
-
 import RestaurantNavBar from "../components/RestaurantNavBar";
 import Menu from "../components/Menu";
 
@@ -10,11 +8,8 @@ const fetchRestaurantMenu = async (slug) => {
     { next: { revalidate: 60 } }
   );
   const res = await jsonRes.json();
-  if (res.status === "success") {
-    return res.data;
-  } else {
-    return notFound();
-  }
+
+  return res?.data;
 };
 
 export default async function RestaurantMenu({ params }) {

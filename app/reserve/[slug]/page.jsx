@@ -37,7 +37,6 @@ export default async function Reserve({ params, searchParams }) {
 }
 
 export async function generateStaticParams() {
-  // eslint-disable-next-line no-undef
   const jsonRes = await fetch(
     // eslint-disable-next-line no-undef
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`

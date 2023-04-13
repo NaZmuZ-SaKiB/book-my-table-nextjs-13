@@ -14,11 +14,17 @@ export async function GET(req) {
         id: true,
         name: true,
         main_image: true,
+        images: true,
         cuisine: true,
         location: true,
         price: true,
         slug: true,
         reviews: true,
+        items: true,
+        tables: true,
+        owner_id: true,
+        open_time: true,
+        close_time: true,
       },
     });
     if (!restaurants) {
