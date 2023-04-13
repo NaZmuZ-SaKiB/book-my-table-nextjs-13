@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import RestaurantNavBar from "../components/RestaurantNavBar";
 import Menu from "../components/Menu";
 
@@ -11,7 +13,7 @@ const fetchRestaurantMenu = async (slug) => {
   if (res.status === "success") {
     return res.data;
   } else {
-    return { items: [] };
+    return notFound();
   }
 };
 
@@ -27,8 +29,9 @@ export default async function RestaurantMenu({ params }) {
   );
 }
 
+export const dynamicParams = false; // true | false,
+
 export async function generateStaticParams() {
-  // eslint-disable-next-line no-undef
   const jsonRes = await fetch(
     // eslint-disable-next-line no-undef
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`
@@ -46,5 +49,5 @@ export async function generateMetadata({ params }) {
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${params.slug}`
   );
   const res = await jsonRes.json();
-  return { title: `Menu | ${res.data.name}` };
+  return { title: `Menu | ${res?.data?.name}` };
 }
