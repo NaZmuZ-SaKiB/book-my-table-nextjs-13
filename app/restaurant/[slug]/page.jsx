@@ -16,17 +16,11 @@ const fetchRestaurantBySlug = async (slug) => {
     }
   );
   const res = await jsonRes.json();
-
-  if (res.status === "success") {
-    return res.data;
-  } else {
-    return null;
-  }
+  return res.data;
 };
 
 export default async function RestaurantDetails({ params }) {
   const restaurant = await fetchRestaurantBySlug(params.slug);
-
   return (
     <>
       <div className="bg-white w-full lg:w-[70%] rounded p-3 shadow">

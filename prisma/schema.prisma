@@ -26,12 +26,12 @@ model Restaurant {
   bookings Booking[]
   tables   Table[]
 
-  owner_id    Int      @default(5)
+  owner_id    Int      @default(7)
   owner       User     @relation(fields: [owner_id], references: [id])
   location_id Int
-  location    Location @relation(fields: [location_id], references: [id])
+  location    Location @relation(fields: [location_id], references: [id], onDelete: NoAction)
   cuisine_id  Int
-  cuisine     Cuisine  @relation(fields: [cuisine_id], references: [id])
+  cuisine     Cuisine  @relation(fields: [cuisine_id], references: [id], onDelete: NoAction)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -43,7 +43,7 @@ model Item {
   price         String
   description   String
   restaurant_id Int
-  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -90,9 +90,9 @@ model Review {
   text          String
   rating        Float
   restaurant_id Int
-  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
   user_id       Int
-  user          User       @relation(fields: [user_id], references: [id])
+  user          User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -110,7 +110,7 @@ model Booking {
   booker_request    String?
   restaurant_id     Int
   tables            Table[]
-  restaurant        Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant        Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -121,7 +121,7 @@ model Table {
   seats         Int
   bookings      Booking[]
   restaurant_id Int
-  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

@@ -5,9 +5,7 @@ const fetchRestaurantBySlug = async (slug) => {
   const jsonRes = await fetch(
     // eslint-disable-next-line no-undef
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}`,
-    {
-      cache: "no-store",
-    }
+    { next: { revalidate: 60 } }
   );
   const res = await jsonRes.json();
 
@@ -35,6 +33,8 @@ export default async function Reserve({ params, searchParams }) {
     </div>
   );
 }
+
+export const dynamicParams = false; // true | false,
 
 export async function generateStaticParams() {
   const jsonRes = await fetch(

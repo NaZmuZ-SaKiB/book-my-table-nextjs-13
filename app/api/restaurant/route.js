@@ -19,12 +19,12 @@ export async function GET(req) {
         location: true,
         price: true,
         slug: true,
-        reviews: true,
-        items: true,
-        tables: true,
         owner_id: true,
         open_time: true,
         close_time: true,
+        items: true,
+        tables: true,
+        reviews: true,
       },
     });
     if (!restaurants) {
