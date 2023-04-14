@@ -1,8 +1,8 @@
-/* eslint-disable no-undef */
-import { AuthenticationContext } from "@/context/AuthContext";
-import axios from "axios";
-import { deleteCookie, setCookie } from "cookies-next";
 import { useContext } from "react";
+import { deleteCookie, setCookie } from "cookies-next";
+import axios from "axios";
+
+import { AuthenticationContext } from "@/context/AuthContext";
 
 const useAuth = () => {
   const { setAuthState } = useContext(AuthenticationContext);

@@ -2,12 +2,9 @@ import Header from "@/components/Header";
 import RestaurantCard from "@/components/RestaurantCard";
 
 const fetchRestaurants = async () => {
-  const jsonRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`,
-    {
-      cache: "no-store",
-    }
-  );
+  const jsonRes = await fetch(`${process.env.BASE_API_URL}/api/restaurant`, {
+    cache: "no-store",
+  });
   const res = await jsonRes.json();
   return res.data;
 };

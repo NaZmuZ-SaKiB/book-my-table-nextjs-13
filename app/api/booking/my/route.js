@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 
 export async function GET(req) {
   try {
-    console.log("HIT api/booking/my");
     const token = await req.cookies.get("jwt").value;
     const user = await verifyToken(token);
     console.log(user);

@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 const fetchRestaurantBySlug = async (slug) => {
   const jsonRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}`,
+    `${process.env.BASE_API_URL}/api/restaurant/${slug}`,
     { cache: "no-store" }
   );
   const res = await jsonRes.json();
