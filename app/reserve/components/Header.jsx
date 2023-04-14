@@ -1,5 +1,3 @@
-import { convertToDisplayTime } from "@/utils/convertToDisplayTime";
-
 export default function Header({ image, name, date, partySize }) {
   const [day, time] = date.split("T");
   let displayDay = new Date(day).toDateString().split(" ").slice(0, -1);
