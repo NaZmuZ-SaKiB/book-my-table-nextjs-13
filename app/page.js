@@ -3,18 +3,13 @@ import RestaurantCard from "@/components/RestaurantCard";
 
 const fetchRestaurants = async () => {
   const jsonRes = await fetch(
-    // eslint-disable-next-line no-undef
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`,
     {
-      next: { revalidate: 60 },
+      cache: "no-store",
     }
   );
   const res = await jsonRes.json();
-  if (res.status === "success") {
-    return res.data;
-  } else {
-    return [];
-  }
+  return res.data;
 };
 
 export default async function Home() {
@@ -24,7 +19,7 @@ export default async function Home() {
       <Header />
       {/* CARDS */}
       <div className="py-3 px-2 mt-5 lg:w-[900px] lg:mx-auto flex flex-wrap justify-center">
-        {restaurants.length ? (
+        {restaurants ? (
           restaurants.map((restaurant) => (
             <RestaurantCard key={restaurant.name} restaurant={restaurant} />
           ))

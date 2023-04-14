@@ -7,9 +7,8 @@ const prisma = new PrismaClient();
 
 const fetchRestaurantMenu = async (slug) => {
   const jsonRes = await fetch(
-    // eslint-disable-next-line no-undef
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}/menu`,
-    { next: { revalidate: 60 } }
+    { cache: "no-store" }
   );
   const res = await jsonRes.json();
 
