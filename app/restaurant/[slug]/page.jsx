@@ -1,4 +1,5 @@
-/* eslint-disable no-undef */
+import { PrismaClient } from "@prisma/client";
+
 import RestaurantNavBar from "./components/RestaurantNavBar";
 import Title from "./components/Title";
 import Rating from "./components/Rating";
@@ -8,8 +9,11 @@ import Reviews from "./components/Reviews";
 import ReservationCard from "./components/ReservationCard";
 import AddReview from "./components/AddReview";
 
+const prisma = new PrismaClient();
+
 const fetchRestaurantBySlug = async (slug) => {
   const jsonRes = await fetch(
+    // eslint-disable-next-line no-undef
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant/${slug}`,
     {
       next: { revalidate: 60 },
@@ -53,17 +57,19 @@ export default async function RestaurantDetails({ params }) {
 export const dynamicParams = false; // true | false,
 
 export async function generateStaticParams() {
-  const jsonRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`
-  );
-  const res = await jsonRes.json();
+  const restaurants = await prisma.restaurant.findMany({
+    select: { slug: true },
+  });
 
-  return res.data.map((restaurant) => ({
+  return restaurants.map((restaurant) => ({
     slug: restaurant.slug,
   }));
 }
 
 export async function generateMetadata({ params }) {
-  const restaurant = await fetchRestaurantBySlug(params.slug);
+  const restaurant = await prisma.restaurant.findUnique({
+    where: { slug: params.slug },
+    select: { name: true },
+  });
   return { title: restaurant.name };
 }

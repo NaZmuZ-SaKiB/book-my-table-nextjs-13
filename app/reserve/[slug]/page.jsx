@@ -1,5 +1,9 @@
+import { PrismaClient } from "@prisma/client";
+
 import Header from "../components/Header";
 import Form from "../components/Form";
+
+const prisma = new PrismaClient();
 
 const fetchRestaurantBySlug = async (slug) => {
   const jsonRes = await fetch(
@@ -9,11 +13,7 @@ const fetchRestaurantBySlug = async (slug) => {
   );
   const res = await jsonRes.json();
 
-  if (res.status === "success") {
-    return res.data;
-  } else {
-    return null;
-  }
+  return res.data;
 };
 
 export default async function Reserve({ params, searchParams }) {
@@ -37,18 +37,19 @@ export default async function Reserve({ params, searchParams }) {
 export const dynamicParams = false; // true | false,
 
 export async function generateStaticParams() {
-  const jsonRes = await fetch(
-    // eslint-disable-next-line no-undef
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/restaurant`
-  );
-  const res = await jsonRes.json();
+  const restaurants = await prisma.restaurant.findMany({
+    select: { slug: true },
+  });
 
-  return res.data.map((restaurant) => ({
+  return restaurants.map((restaurant) => ({
     slug: restaurant.slug,
   }));
 }
 
 export async function generateMetadata({ params }) {
-  const restaurant = await fetchRestaurantBySlug(params.slug);
+  const restaurant = await prisma.restaurant.findUnique({
+    where: { slug: params.slug },
+    select: { name: true },
+  });
   return { title: `Reserve | ${restaurant.name}` };
 }
